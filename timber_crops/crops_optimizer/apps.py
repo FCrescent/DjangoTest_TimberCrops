@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CropOptimizerConfig(AppConfig):
+class CropsOptimizerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'crop_optimizer'
+    name = 'crops_optimizer'
