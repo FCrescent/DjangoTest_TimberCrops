@@ -22,11 +22,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('crops_optimizer/', include('crops_optimizer.urls')),
+    # path('crops_optimizer/', include('crops_optimizer.urls')),
+    path('', include('crops_optimizer.urls')),
 ]
-
-
-
-# urlpatterns = [
-#     path('hello/', views.hello, name='hello'),
-# ]
