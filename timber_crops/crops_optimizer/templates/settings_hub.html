@@ -6,5 +6,18 @@
 <body>
     <h1>Settings Hub</h1>
     <p>Here you can change the data for settings including game mode / difficulty</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    {% for game_mode in existing_game_modes %}
+    <p><b>{{ game_mode.name }}</b> :</p> 
+    <p>Food consumption (%) : {{ game_mode.food_consumption_percentage }} %</p>
+    <p>Food consumption (daily unit) :{{ game_mode.food_consumption_daily_unit }}</p>
+    <br>  
+    {% endfor %}
+
 </body>
 </html>

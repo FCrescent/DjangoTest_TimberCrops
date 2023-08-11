@@ -1,5 +1,6 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from .forms import GameModeForm
+from .models import GameMode
 # Create your views here.
 
 
@@ -11,5 +12,19 @@ def hello(request):
 def home(request):
     return render(request, 'home.html')
 
+# def settings_hub(request):
+#     return render(request, 'settings_hub.html')
 def settings_hub(request):
-    return render(request, 'settings_hub.html')
+    form = GameModeForm()
+
+    if request.method == 'POST':
+        form = GameModeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('settings_hub')
+
+    existing_game_modes = GameMode.objects.all()
+
+    # context = {'form': form}
+    context = {'form': form, 'existing_game_modes': existing_game_modes}
+    return render(request, 'settings_hub.html', context)
