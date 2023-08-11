@@ -1,7 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Settings Hub</title>
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crops_optimizer/styles.css' %}">
+
+
 </head>
 <body>
     <h1>Settings Hub</h1>
@@ -12,12 +18,40 @@
         <button type="submit">Submit</button>
     </form>
 
-    {% for game_mode in existing_game_modes %}
+    {% comment %} {% for game_mode in existing_game_modes %}
     <p><b>{{ game_mode.name }}</b> :</p> 
     <p>Food consumption (%) : {{ game_mode.food_consumption_percentage }} %</p>
     <p>Food consumption (daily unit) :{{ game_mode.food_consumption_daily_unit }}</p>
     <br>  
-    {% endfor %}
+    {% endfor %} {% endcomment %}
+
+    <h2>Existing Game Modes</h2>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Food Consumption (%)</th>
+                <th>Food Consumption (daily unit)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game_mode in existing_game_modes %}
+            <tr>
+                <td>
+                    <form method="post" action="{% url 'delete_game_mode' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="game_mode_id" value="{{ game_mode.id }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+                <td><b>{{ game_mode.name }}</b></td>
+                <td>{{ game_mode.food_consumption_percentage }} %</td>
+                <td>{{ game_mode.food_consumption_daily_unit }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </body>
 </html>

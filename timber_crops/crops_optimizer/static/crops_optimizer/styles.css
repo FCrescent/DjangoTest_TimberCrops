@@ -1,0 +1,14 @@
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid black; /* Add borders to cells */
+    padding: 8px;
+    text-align: left;
+}
+
+.styled-table th {
+    background-color: #f2f2f2; /* Add a background color to header cells */
+}

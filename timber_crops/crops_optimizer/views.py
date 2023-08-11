@@ -28,3 +28,11 @@ def settings_hub(request):
     # context = {'form': form}
     context = {'form': form, 'existing_game_modes': existing_game_modes}
     return render(request, 'settings_hub.html', context)
+
+def delete_game_mode(request):
+    if request.method == 'POST':
+        game_mode_id = request.POST.get('game_mode_id')
+        # request
+        if game_mode_id:
+            GameMode.objects.filter(id=game_mode_id).delete()
+    return redirect('settings_hub')  # Redirect back to the settings hub
