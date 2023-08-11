@@ -10,3 +10,6 @@ def hello(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def settings_hub(request):
+    return render(request, 'settings_hub.html')
