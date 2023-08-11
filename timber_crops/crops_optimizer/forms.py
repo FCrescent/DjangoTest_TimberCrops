@@ -5,3 +5,8 @@ class GameModeForm(forms.ModelForm):
     class Meta:
         model = GameMode
         fields = ['name', 'food_consumption_percentage', 'food_consumption_daily_unit']
+
+class ModifyGameModeForm(forms.ModelForm):
+    class Meta:
+        model = GameMode
+        fields = ['name', 'food_consumption_percentage', 'food_consumption_daily_unit']

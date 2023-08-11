@@ -30,6 +30,7 @@
         <thead>
             <tr>
                 <th></th>
+                <th></th>
                 <th>Name</th>
                 <th>Food Consumption (%)</th>
                 <th>Food Consumption (daily unit)</th>
@@ -38,6 +39,12 @@
         <tbody>
             {% for game_mode in existing_game_modes %}
             <tr>
+                <td>
+                    <form method="post" action="{% url 'modify_game_mode' game_mode.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Modify</button>
+                    </form>
+                </td>
                 <td>
                     <form method="post" action="{% url 'delete_game_mode' %}">
                         {% csrf_token %}
