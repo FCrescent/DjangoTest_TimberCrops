@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Settings Hub</title>
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"> {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'crops_optimizer/styles.css' %}">
 
 
@@ -14,9 +13,28 @@
     <p>Here you can change the data for settings including game mode / difficulty</p>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table class="styled-table" style="width:400px">
+            <tr>
+                <td>{{ form.name.label_tag }}</td>
+                <td>{{ form.name }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.food_consumption_percentage.label_tag }}</td>
+                <td>{{ form.food_consumption_percentage }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.food_consumption_daily_unit.label_tag }}</td>
+                <td>{{ form.food_consumption_daily_unit }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.locked.label_tag }}</td>
+                <td>{{ form.locked }}</td>
+            </tr>
+        </table>
         <button type="submit">Create</button>
     </form>
+    
+    
 
     <h2>Existing Game Modes</h2>
     <table class="styled-table">
@@ -27,6 +45,7 @@
                 <th>Name</th>
                 <th>Food Consumption (%)</th>
                 <th>Food Consumption (daily unit)</th>
+                <th>Locked</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +67,7 @@
                 <td><b>{{ game_mode.name }}</b></td>
                 <td>{{ game_mode.food_consumption_percentage }} %</td>
                 <td>{{ game_mode.food_consumption_daily_unit }}</td>
+                <td>{{ game_mode.locked }}</td>
             </tr>
             {% endfor %}
         </tbody>

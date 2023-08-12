@@ -12,18 +12,20 @@
             <th>Name</th>
             <th>Food Consumption (%)</th>
             <th>Food Consumption (daily unit)</th>
+            <th>Locked</th>
         </tr>
         <tr>
             <td>{{ game_mode.name }}</td>
             <td>{{ game_mode.food_consumption_percentage }} %</td>
             <td>{{ game_mode.food_consumption_daily_unit }}</td>
+            <td>{{ game_mode.locked }}</td>
         </tr>
     </table>
 
     <br>
     <form method="post">
         {% csrf_token %}
-        <table class="styled-table" style="width:50%">
+        <table class="styled-table" style="width:500px">
             <tr>
                 <th>Name</th>
                 <td>{{ form.name.errors }} {{ form.name }}</td>
@@ -36,11 +38,16 @@
                 <th>Food Consumption (daily unit)</th>
                 <td>{{ form.food_consumption_daily_unit.errors }} {{ form.food_consumption_daily_unit }}</td>
             </tr>
+            <tr>
+                <th>{{form.locked.label_tag}}</th>
+                <td>{{ form.locked.errors }} {{ form.locked }}</td>
+            </tr>
         </table>
         <button type="submit">Save Changes</button>
     </form>
+    <br>
     
-
+    
 
     <script>
         // Get existing data from the page
