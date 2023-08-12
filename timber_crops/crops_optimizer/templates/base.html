@@ -1,0 +1,22 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add your common meta tags, styles, etc. here -->
+    <title>{% block title %}Default Title{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'crops_optimizer/styles.css' %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'settings_hub' %}" style="margin-left: 50px;">Settings Hub</a>
+        <!-- Other navigation links or content can be added here -->
+    </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block script %}{% endblock %}
+</body>
+</html>

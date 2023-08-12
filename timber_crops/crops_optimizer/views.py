@@ -3,6 +3,7 @@ from .forms import GameModeForm, ModifyGameModeForm#, ModifyLockForm
 from .models import GameMode
 import logging
 from django.contrib import messages
+from django.http import HttpRequest
 # Create your views here.
 
 
@@ -14,9 +15,9 @@ def hello(request):
 def home(request):
     return render(request, 'home.html')
 
-def settings_hub(request):
+def settings_hub(request: HttpRequest) -> HttpResponse: #type hinting used to specify the expected type of the request
     form = GameModeForm()
-
+    
     if request.method == 'POST':
         form = GameModeForm(request.POST)
         if form.is_valid():
@@ -30,7 +31,7 @@ def settings_hub(request):
 
 def modify_game_mode(request, game_mode_id):
     game_mode = get_object_or_404(GameMode, id=game_mode_id)
-
+    
     if request.method == 'POST':
         form = ModifyGameModeForm(request.POST, instance=game_mode)
         if form.is_valid():

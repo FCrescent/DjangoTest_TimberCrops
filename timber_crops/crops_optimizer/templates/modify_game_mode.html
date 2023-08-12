@@ -1,12 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Modify Game Mode</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'crops_optimizer/styles.css' %}">
-</head>
-<body>
-    <h2>Modify Game Mode: {{ game_mode.name }}</h2>
+{% extends 'base.html' %}
+{% comment %} {% load static %} {% endcomment %}
+
+{% block title %}Settings Hub{% endblock %}
+
+{% block content %}
+<h2>Modify Game Mode: {{ game_mode.name }}</h2>
     <table class="styled-table">
         <tr>
             <th>Name</th>
@@ -46,22 +44,25 @@
         <button type="submit">Save Changes</button>
     </form>
     <br>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    // Get existing data from the page
+    var existingName = "{{ game_mode.name }}";
+    var existingPercentage = "{{ game_mode.food_consumption_percentage }}";
+    var existingDailyUnit = "{{ game_mode.food_consumption_daily_unit }}";
+    
+    // Fill up the form fields
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("#id_name").value = existingName;
+        document.querySelector("#id_food_consumption_percentage").value = existingPercentage;
+        document.querySelector("#id_food_consumption_daily_unit").value = existingDailyUnit;
+    });
+</script>
+{% endblock %}
     
     
 
-    <script>
-        // Get existing data from the page
-        var existingName = "{{ game_mode.name }}";
-        var existingPercentage = "{{ game_mode.food_consumption_percentage }}";
-        var existingDailyUnit = "{{ game_mode.food_consumption_daily_unit }}";
-        
-        // Fill up the form fields
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector("#id_name").value = existingName;
-            document.querySelector("#id_food_consumption_percentage").value = existingPercentage;
-            document.querySelector("#id_food_consumption_daily_unit").value = existingDailyUnit;
-        });
-    </script>
-
-</body>
-</html>
+    
