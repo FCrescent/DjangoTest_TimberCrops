@@ -1,10 +1,25 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Modify Game Mode</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'crops_optimizer/styles.css' %}">
 </head>
 <body>
-    <h2>Modify Game Mode</h2>
+    <h2>Modify Game Mode: {{ game_mode.name }}</h2>
+    <table class="styled-table">
+        <tr>
+            <th>Name</th>
+            <th>Food Consumption (%)</th>
+            <th>Food Consumption (daily unit)</th>
+        </tr>
+        <tr>
+            <td>{{ game_mode.name }}</td>
+            <td>{{ game_mode.food_consumption_percentage }} %</td>
+            <td>{{ game_mode.food_consumption_daily_unit }}</td>
+        </tr>
+    </table>
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
