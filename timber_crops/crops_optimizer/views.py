@@ -34,11 +34,16 @@ def modify_game_mode(request, game_mode_id):
     if request.method == 'POST':
         form = ModifyGameModeForm(request.POST, instance=game_mode)
         if form.is_valid():
-            form.save()
-            return redirect('settings_hub')
+            new_name = form.cleaned_data['name']
+            if new_name != game_mode.name and GameMode.objects.filter(name=new_name).exists():
+                form.add_error('name', 'A Game Mode with this name already exists.')
+            else:
+                form.save()
+                return redirect('settings_hub')
     else:
         form = ModifyGameModeForm(instance=game_mode)
     return render(request, 'modify_game_mode.html', {'form': form, 'game_mode': game_mode})
+
 
 
 def delete_game_mode(request):

@@ -20,9 +20,23 @@
         </tr>
     </table>
 
+    <br>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table class="styled-table" style="width:50%">
+            <tr>
+                <th>Name</th>
+                <td>{{ form.name.errors }} {{ form.name }}</td>
+            </tr>
+            <tr>
+                <th>Food Consumption (%)</th>
+                <td>{{ form.food_consumption_percentage.errors }} {{ form.food_consumption_percentage }}</td>
+            </tr>
+            <tr>
+                <th>Food Consumption (daily unit)</th>
+                <td>{{ form.food_consumption_daily_unit.errors }} {{ form.food_consumption_daily_unit }}</td>
+            </tr>
+        </table>
         <button type="submit">Save Changes</button>
     </form>
     
