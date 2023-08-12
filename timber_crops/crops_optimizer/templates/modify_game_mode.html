@@ -40,7 +40,21 @@
         <button type="submit">Save Changes</button>
     </form>
     
+
+
+    <script>
+        // Get existing data from the page
+        var existingName = "{{ game_mode.name }}";
+        var existingPercentage = "{{ game_mode.food_consumption_percentage }}";
+        var existingDailyUnit = "{{ game_mode.food_consumption_daily_unit }}";
+        
+        // Fill up the form fields
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector("#id_name").value = existingName;
+            document.querySelector("#id_food_consumption_percentage").value = existingPercentage;
+            document.querySelector("#id_food_consumption_daily_unit").value = existingDailyUnit;
+        });
+    </script>
+
 </body>
-
-
 </html>
