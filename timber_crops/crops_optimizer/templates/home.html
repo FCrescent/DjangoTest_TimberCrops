@@ -19,16 +19,17 @@
           id="number_of_beavers"
           name="number_of_beavers"
           required
+          value="{{ number_of_beavers }}"
         />
       </td>
     </tr>
     <tr>
       <th>Carrots:</th>
-      <td><input type="checkbox" id="carrots" name="carrots" /></td>
+      <td><input type="checkbox" id="carrots" name="carrots" {% if carrots_selected %}checked{% endif %} /></td>
     </tr>
     <tr>
       <th>Bread:</th>
-      <td><input type="checkbox" id="bread" name="bread" /></td>
+      <td><input type="checkbox" id="bread" name="bread" {% if bread_selected %}checked{% endif %} /></td>
     </tr>
   </table>
   <br />
@@ -41,8 +42,15 @@
 
 {% if required_carrot_crops is not None %}
 <p>Number of carrot crops required: {{ required_carrot_crops }}</p>
-{% endif %} {% if required_wheat_crops is not None %}
+{% endif %} 
+{% if required_wheat_crops is not None %}
 <p>Number of wheat crops required: {{ required_wheat_crops }}</p>
 {% endif %} 
 
+<div id="plop">
+    <!-- The content will be inserted here by JavaScript -->
+</div>
+
 {% endblock %}
+
+

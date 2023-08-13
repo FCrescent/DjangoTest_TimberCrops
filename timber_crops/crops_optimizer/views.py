@@ -44,15 +44,9 @@ def home(request):
             }    
 
         return render(request, 'home.html', context)
-            # return render(request, 'home.html', {
-            #     'number_of_beavers': number_of_beavers,
-            #     'carrots_selected': carrots_selected,
-            #     'bread_selected': bread_selected,
-            #     'required_carrot_crops': required_carrot_crops,
-            #     # You can add similar context for bread here
-            # })
 
     return render(request, 'home.html')
+
 
 def settings_hub(request: HttpRequest) -> HttpResponse: #type hinting used to specify the expected type of the request
     form = GameModeForm()
