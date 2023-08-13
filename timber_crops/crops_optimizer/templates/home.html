@@ -1,16 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome to TimberCrops</title>
-</head>
-<body>
-    <h1>Welcome to TimberCrops</h1>
-    <p>This is your crop optimization tool for the Timberborn game.</p>
+{% extends 'base.html' %} {% block title %}Welcome to TimberCrops{% endblock %}
+{% block content %}
 
-<br>
-    <a href="{% url 'settings_hub' %}">Go to Settings Hub</a>
+<h1>Welcome to TimberCrops</h1>
+<p>This is your crop optimization tool for the Timberborn game.</p>
 
-</body>
+<br />
+{% comment %} <a href="{% url 'settings_hub' %}">Go to Settings Hub</a> {% endcomment %}
 
+<!-- home.html -->
+<form method="post">
+  {% csrf_token %}
+  <table class="styled-table" style="width: 400px">
+    <tr>
+      <th>Number of Beavers:</th>
+      <td>
+        <input
+          type="number"
+          id="number_of_beavers"
+          name="number_of_beavers"
+          required
+        />
+      </td>
+    </tr>
+    <tr>
+      <th>Carrots:</th>
+      <td><input type="checkbox" id="carrots" name="carrots" /></td>
+    </tr>
+    <tr>
+      <th>Bread:</th>
+      <td><input type="checkbox" id="bread" name="bread" /></td>
+    </tr>
+  </table>
+  <br />
+  <button type="submit">Start Simulation</button>
+</form>
 
-</html>
+{% if submitted %}
+<h2>Results</h2>
+{% endif %}
+
+{% if required_carrot_crops is not None %}
+<p>Number of carrot crops required: {{ required_carrot_crops }}</p>
+{% endif %} {% if required_wheat_crops is not None %}
+<p>Number of wheat crops required: {{ required_wheat_crops }}</p>
+{% endif %} 
+
+{% endblock %}

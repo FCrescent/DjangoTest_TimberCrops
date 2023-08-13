@@ -13,6 +13,45 @@ def hello(request):
     return HttpResponse("Hello, TimberCrops!")
 
 def home(request):
+    if request.method == 'POST':
+        number_of_beavers = int(request.POST.get('number_of_beavers'))
+        carrots_selected = 'carrots' in request.POST
+        bread_selected = 'bread' in request.POST
+
+        if carrots_selected:
+            # Calculate the required number of carrot crops
+            carrots_per_day = 0.75  # Example value, adjust as needed
+            consumption_per_beaver = 2.5
+            required_carrot_crops = (number_of_beavers * consumption_per_beaver) / carrots_per_day
+        else:
+            required_carrot_crops = None
+
+        if bread_selected:
+            # Calculate the required number of carrot crops
+            wheat_per_day = 1.5  # Example value, adjust as needed
+            consumption_per_beaver = 2.5
+            required_wheat_crops = (number_of_beavers * consumption_per_beaver) / wheat_per_day
+        else:
+            required_wheat_crops = None
+
+        context = {
+            'number_of_beavers': number_of_beavers,
+            'carrots_selected': carrots_selected,
+            'bread_selected': bread_selected,
+            'required_carrot_crops': required_carrot_crops,
+            'required_wheat_crops': required_wheat_crops,
+            # Add other variables here
+            }    
+
+        return render(request, 'home.html', context)
+            # return render(request, 'home.html', {
+            #     'number_of_beavers': number_of_beavers,
+            #     'carrots_selected': carrots_selected,
+            #     'bread_selected': bread_selected,
+            #     'required_carrot_crops': required_carrot_crops,
+            #     # You can add similar context for bread here
+            # })
+
     return render(request, 'home.html')
 
 def settings_hub(request: HttpRequest) -> HttpResponse: #type hinting used to specify the expected type of the request
