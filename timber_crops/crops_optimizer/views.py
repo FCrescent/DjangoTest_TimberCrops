@@ -16,32 +16,56 @@ def home(request):
     if request.method == 'POST':
         number_of_beavers = int(request.POST.get('number_of_beavers'))
         carrots_selected = 'carrots' in request.POST
+        carrots_food_ratio = int(request.POST.get('carrots_food_ratio'))
         bread_selected = 'bread' in request.POST
+        bread_food_ratio = int(request.POST.get('bread_food_ratio'))
 
-        if carrots_selected:
-            # Calculate the required number of carrot crops
-            carrots_per_day = 0.75  # Example value, adjust as needed
-            consumption_per_beaver = 2.5
-            required_carrot_crops = (number_of_beavers * consumption_per_beaver) / carrots_per_day
-        else:
-            required_carrot_crops = None
+        daily_food_intake = 2.5
+        number_daily_food = daily_food_intake * number_of_beavers
 
-        if bread_selected:
-            # Calculate the required number of carrot crops
-            wheat_per_day = 1.5  # Example value, adjust as needed
-            consumption_per_beaver = 2.5
-            required_wheat_crops = (number_of_beavers * consumption_per_beaver) / wheat_per_day
-        else:
-            required_wheat_crops = None
+        foods = {
+            "carrots" : {
+                "selected" : carrots_selected,
+                "ratio_to_food" : carrots_food_ratio,
+                "crop_yield" : 3,
+                "days_between_harvest" : 4,
+                "transformation_multiplier" : 1
+            },
+            "bread" : {
+                "selected" : bread_selected,
+                "ratio_to_food" : bread_food_ratio,
+                "crop_yield" : 3,
+                "days_between_harvest" : 10,
+                "transformation_multiplier" : 5
+            }
+        }
+
+        sum_food_ratio = sum(food_data["ratio_to_food"] for food_data in foods.values())
+
+        for food_name, food_data in foods.items():
+            if food_data["selected"]:
+                ratio_to_food = food_data["ratio_to_food"]
+                crop_yield = food_data["crop_yield"]
+                days_between_harvest = food_data["days_between_harvest"]
+                transformation_multiplier = food_data["transformation_multiplier"]
+
+                required_daily_food_prod = ratio_to_food * number_daily_food / sum(food["ratio_to_food"] for food in foods.values())
+                daily_crop_prod = crop_yield / days_between_harvest * transformation_multiplier
+                required_crops_number = required_daily_food_prod / daily_crop_prod
+
+                food_data["required_crops_number"] = required_crops_number
+            else:
+                food_data["required_crops_number"] = 0
 
         context = {
             'number_of_beavers': number_of_beavers,
             'carrots_selected': carrots_selected,
             'bread_selected': bread_selected,
-            'required_carrot_crops': required_carrot_crops,
-            'required_wheat_crops': required_wheat_crops,
+            'required_carrot_crops': foods["carrots"]["required_crops_number"],
+            'required_wheat_crops': foods["bread"]["required_crops_number"],
             # Add other variables here
             }    
+
 
         return render(request, 'home.html', context)
 

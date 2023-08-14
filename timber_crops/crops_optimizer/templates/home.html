@@ -14,22 +14,29 @@
     <tr>
       <th>Number of Beavers:</th>
       <td>
-        <input
-          type="number"
-          id="number_of_beavers"
-          name="number_of_beavers"
-          required
-          value="{{ number_of_beavers }}"
-        />
+        <input type="number" id="number_of_beavers" name="number_of_beavers" required value="{{ number_of_beavers }}"/>
       </td>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>Proportion of foods</th>
     </tr>
     <tr>
       <th>Carrots:</th>
       <td><input type="checkbox" id="carrots" name="carrots" {% if carrots_selected %}checked{% endif %} /></td>
+      <td>
+        <input type="number" id="carrots_food_ratio" name="carrots_food_ratio" required 
+        value="1"/>
+      </td>
     </tr>
     <tr>
       <th>Bread:</th>
       <td><input type="checkbox" id="bread" name="bread" {% if bread_selected %}checked{% endif %} /></td>
+      <td>
+        <input type="number" id="bread_food_ratio" name="bread_food_ratio" required 
+        value="1"/>
+      </td>
     </tr>
   </table>
   <br />
@@ -40,16 +47,23 @@
 <h2>Results</h2>
 {% endif %}
 
-{% if required_carrot_crops is not None %}
-<p>Number of carrot crops required: {{ required_carrot_crops }}</p>
-{% endif %} 
-{% if required_wheat_crops is not None %}
-<p>Number of wheat crops required: {{ required_wheat_crops }}</p>
-{% endif %} 
+{% if required_carrot_crops is not None or required_wheat_crops is not None %}
+<table class="styled-table" style="width:400px">
+    {% if required_carrot_crops is not None %}
+    <tr>
+        <th>Number of carrot crops required:</th>
+        <td>{{ required_carrot_crops }}</td>
+    </tr>
+    {% endif %} 
+    {% if required_wheat_crops is not None %}
+    <tr>
+        <th>Number of wheat crops required:</th>
+        <td>{{ required_wheat_crops }}</td>
+    </tr>
+    {% endif %}
+</table>
+{% endif %}
 
-<div id="plop">
-    <!-- The content will be inserted here by JavaScript -->
-</div>
 
 {% endblock %}
 
