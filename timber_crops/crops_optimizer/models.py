@@ -11,3 +11,16 @@ class GameMode(models.Model):
 
     def __str__(self):
         return self.name
+
+class NeedsCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Need(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(NeedsCategory, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.name
