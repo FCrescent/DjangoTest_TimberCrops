@@ -12,6 +12,13 @@
         <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'settings_hub' %}" style="margin-left: 50px;">Settings Hub</a>
         <!-- Other navigation links or content can be added here -->
+        <div class="dropdown">
+            <button class="dropbtn">Static Tables</button>
+            <div class="dropdown-content">
+                <a href="{% url 'resource_cat_list' %}">Resource Categories</a>
+                <!-- Add links to other static data tables here -->
+            </div>
+        </div>
     </header>
     <div class="content">
         {% block content %}{% endblock %}

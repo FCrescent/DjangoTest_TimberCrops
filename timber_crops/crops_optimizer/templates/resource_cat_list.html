@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Resource Categories</h1>
+<a href="{% url 'resource_cat_create' %}" class="btn btn-primary">Create New Resource Category</a>
+<table class="styled-table" style="width: 400px">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cat in resource_cat %}
+            <tr>
+                <td>{{ cat.name }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

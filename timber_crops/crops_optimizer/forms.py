@@ -1,5 +1,5 @@
 from django import forms
-from .models import GameMode, Need, NeedsCategory
+from .models import GameMode, Need, NeedsCategory, ResourceCat
 
 class GameModeForm(forms.ModelForm):
     class Meta:
@@ -21,3 +21,7 @@ class NeedForm(forms.ModelForm):
         model = Need
         exclude = []
 
+class ResourceCatForm(forms.ModelForm):
+    class Meta:
+        model = ResourceCat
+        fields = ['name']

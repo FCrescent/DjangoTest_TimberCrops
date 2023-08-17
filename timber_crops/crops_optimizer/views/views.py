@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import GameModeForm, ModifyGameModeForm#, ModifyLockForm
-from .models import GameMode
+from ..forms import GameModeForm, ModifyGameModeForm#, ModifyLockForm
+from ..models import GameMode
 import logging
 from django.contrib import messages
 from django.http import HttpRequest
