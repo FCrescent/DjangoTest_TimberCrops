@@ -24,3 +24,9 @@ class Need(models.Model):
 
     def __str__(self):
         return self.name
+    
+class ResourceCat(models.Model):
+    name = models.CharField(max_length=255)  # Adjust the max_length as needed
+
+    def __str__(self):
+        return self.name
