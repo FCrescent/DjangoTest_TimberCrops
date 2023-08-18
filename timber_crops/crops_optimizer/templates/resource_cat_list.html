@@ -2,17 +2,26 @@
 
 {% block content %}
 <h1>Resource Categories</h1>
-<a href="{% url 'resource_cat_create' %}" class="btn btn-primary">Create New Resource Category</a>
+<a href="{% url 'resource_cat_create' %}" class="btn btn-primary">Create New</a>
+<br><br>
 <table class="styled-table" style="width: 400px">
     <thead>
         <tr>
-            <th>Category Name</th>
+            <th>Actions</th>
+            <th>Name</th>
         </tr>
     </thead>
     <tbody>
-        {% for cat in resource_cat %}
+        {% for category in resource_cat %}
             <tr>
-                <td>{{ cat.name }}</td>
+                <td style="display: flex; justify-content: space-around;">
+                    <a href="{% url 'resource_cat_update' category.pk %}" class="btn update-button">Update</a>
+                    <form method="post" action="{% url 'resource_cat_delete' category.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn delete-button">Delete</button>
+                    </form>
+                </td>
+                <td>{{ category.name }}</td>
             </tr>
         {% endfor %}
     </tbody>

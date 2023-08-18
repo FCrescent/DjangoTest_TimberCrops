@@ -49,3 +49,24 @@
     text-decoration: none;
     display: block;
 }
+
+.btn {
+    border: rgb(0, 0, 0) solid 1px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: rgb(240, 240, 240);
+    text-decoration:none;
+}
+
+/* Styles for the Update button */
+.update-button {
+    background-color: #4caf50; /* Green color */
+    color: white;
+}
+
+/* Styles for the Delete button */
+.delete-button {
+    background-color: #f44336; /* Red color */
+    color: white;
+}
