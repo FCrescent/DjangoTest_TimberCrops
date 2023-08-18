@@ -12,6 +12,17 @@
   {% csrf_token %}
   <table class="styled-table" style="width: 400px">
     <tr>
+      <th>Game Mode:</th>
+      <td>
+        <select id="game_mode" name="game_mode" required>
+          <option value="" disabled selected>Select a Game Mode</option>
+          {% for mode in game_modes %}
+            <option value="{{ mode.id }}" {% if mode.id == selected_mode_id %}selected{% endif %}>{{ mode.name }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    <tr>
       <th>Number of Beavers:</th>
       <td>
         <input type="number" id="number_of_beavers" name="number_of_beavers" required value="{{ number_of_beavers }}"/>

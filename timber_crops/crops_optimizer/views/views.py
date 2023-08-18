@@ -4,6 +4,7 @@ from ..models import GameMode
 import logging
 from django.contrib import messages
 from django.http import HttpRequest
+from decimal import Decimal
 # Create your views here.
 
 
@@ -13,6 +14,10 @@ def hello(request):
     return HttpResponse("Hello, TimberCrops!")
 
 def home(request):
+    game_modes = GameMode.objects.all()
+    context = {
+        'game_modes': game_modes,
+    }
     if request.method == 'POST':
         number_of_beavers = int(request.POST.get('number_of_beavers'))
         carrots_selected = 'carrots' in request.POST
@@ -20,7 +25,15 @@ def home(request):
         bread_selected = 'bread' in request.POST
         bread_food_ratio = int(request.POST.get('bread_food_ratio'))
 
-        daily_food_intake = 2.5
+        selected_game_mode_id = int(request.POST.get('game_mode'))
+        try:
+            selected_game_mode = GameMode.objects.get(pk=selected_game_mode_id)
+        except GameMode.DoesNotExist:
+            # Gérer le cas où le mode de jeu n'existe pas
+            pass
+        else:
+            daily_food_intake = selected_game_mode.food_consumption_daily_unit
+        # daily_food_intake = 2.5
         number_daily_food = daily_food_intake * number_of_beavers
 
         foods = {
@@ -51,13 +64,13 @@ def home(request):
 
                 required_daily_food_prod = ratio_to_food * number_daily_food / sum(food["ratio_to_food"] for food in foods.values())
                 daily_crop_prod = crop_yield / days_between_harvest * transformation_multiplier
-                required_crops_number = required_daily_food_prod / daily_crop_prod
+                required_crops_number = Decimal(required_daily_food_prod) / Decimal(daily_crop_prod)
 
                 food_data["required_crops_number"] = required_crops_number
             else:
                 food_data["required_crops_number"] = 0
 
-        context = {
+        result_context = {
             'number_of_beavers': number_of_beavers,
             'carrots_selected': carrots_selected,
             'bread_selected': bread_selected,
@@ -66,10 +79,11 @@ def home(request):
             # Add other variables here
             }    
 
+        context = {**context, **result_context}
 
         return render(request, 'home.html', context)
 
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'game_modes': game_modes})
 
 
 def settings_hub(request: HttpRequest) -> HttpResponse: #type hinting used to specify the expected type of the request
