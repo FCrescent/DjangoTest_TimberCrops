@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Resources</h1>
+<a href="{% url 'resource_create' %}" class="btn btn-primary">Create New</a>
+<br><br>
+<table class="styled-table" style="width: 400px">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Name</th>
+            <th>Resource category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in resource %}
+            <tr>
+                <td style="display: flex; justify-content: space-around;">
+                    <a href="{% url 'resource_update' category.pk %}" class="btn update-button">Update</a>
+                    <form method="post" action="{% url 'resource_delete' category.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn delete-button">Delete</button>
+                    </form>
+                </td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.resource_cat }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
