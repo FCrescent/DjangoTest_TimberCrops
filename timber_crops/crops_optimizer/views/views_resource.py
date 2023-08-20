@@ -6,7 +6,7 @@ from ..forms import ResourceForm
 class ResourceListView(ListView):
     model = Resource
     template_name = 'resource_list.html'
-    context_object_name = 'resource'
+    context_object_name = 'resources'
 
 class ResourceCreateView(CreateView):
     model = Resource

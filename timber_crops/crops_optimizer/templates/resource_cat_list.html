@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for category in resource_cat %}
+        {% for category in resource_categories %}
             <tr>
                 <td style="display: flex; justify-content: space-around;">
                     <a href="{% url 'resource_cat_update' category.pk %}" class="btn update-button">Update</a>

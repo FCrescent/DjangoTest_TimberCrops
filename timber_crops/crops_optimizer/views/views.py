@@ -29,11 +29,11 @@ def home(request):
         try:
             selected_game_mode = GameMode.objects.get(pk=selected_game_mode_id)
         except GameMode.DoesNotExist:
-            # Gérer le cas où le mode de jeu n'existe pas
+            # Manage here the case where the GameMode does not exist
             pass
         else:
             daily_food_intake = selected_game_mode.food_consumption_daily_unit
-        # daily_food_intake = 2.5
+            #previously daily_food_intake = 2.5
         number_daily_food = daily_food_intake * number_of_beavers
 
         foods = {

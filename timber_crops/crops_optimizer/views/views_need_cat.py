@@ -17,7 +17,8 @@ class NeedCatCreateView(CreateView):
 
 class NeedCatUpdateView(UpdateView):
     model = NeedCat
-    fields = ['name']
+    form_class = NeedCatForm
+    # fields = ['name']
     template_name = 'need_cat_form.html'
     success_url = reverse_lazy('need_cat_list')
 

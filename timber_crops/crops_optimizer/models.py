@@ -25,14 +25,20 @@ class Need(models.Model):
         return self.name
     
 class ResourceCat(models.Model):
-    name = models.CharField(max_length=100)  # Adjust the max_length as needed
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
     
 class Resource(models.Model):
     name = models.CharField(max_length=100)
-    resource_cat = models.ForeignKey(ResourceCat, on_delete=models.PROTECT, related_name='resources')
+    category = models.ForeignKey(ResourceCat, on_delete=models.PROTECT, related_name='resources')
+
+    def __str__(self):
+        return self.name
+    
+class NatStructCat(models.Model):
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name

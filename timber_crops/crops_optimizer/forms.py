@@ -1,5 +1,5 @@
 from django import forms
-from .models import GameMode, Need, NeedCat, ResourceCat, Resource
+from .models import GameMode, Need, NeedCat, ResourceCat, Resource, NatStructCat
 
 class GameModeForm(forms.ModelForm):
     class Meta:
@@ -26,7 +26,12 @@ class ResourceCatForm(forms.ModelForm):
         model = ResourceCat
         fields = ['name']
 
+class NatStructCatForm(forms.ModelForm):
+    class Meta:
+        model = NatStructCat
+        fields = ['name']
+
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ['name', 'resource_cat']
+        fields = ['name', 'category']

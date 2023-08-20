@@ -6,7 +6,7 @@ from ..forms import ResourceCatForm
 class ResourceCatListView(ListView):
     model = ResourceCat
     template_name = 'resource_cat_list.html'
-    context_object_name = 'resource_cat'
+    context_object_name = 'resource_categories'
 
 class ResourceCatCreateView(CreateView):
     model = ResourceCat
@@ -17,7 +17,8 @@ class ResourceCatCreateView(CreateView):
 
 class ResourceCatUpdateView(UpdateView):
     model = ResourceCat
-    fields = ['name']
+    form_class = ResourceCatForm
+    # fields = ['name']
     template_name = 'resource_cat_form.html'
     success_url = reverse_lazy('resource_cat_list')
 
