@@ -42,3 +42,17 @@ class NatStructCat(models.Model):
 
     def __str__(self):
         return self.name
+    
+class NatStruct(models.Model):
+    name = models.CharField(max_length=100)
+    days_to_grow = models.PositiveIntegerField()
+    days_between_harvest = models.PositiveIntegerField()
+    resource_cut_yield = models.PositiveIntegerField()
+    resource_harvest_yield = models.PositiveIntegerField()
+    category = models.ForeignKey(NatStructCat, on_delete=models.PROTECT, related_name='nat_structs')
+    resource_cut = models.ForeignKey(Resource, on_delete=models.PROTECT, related_name='cut_nat_structs')
+    resource_harvest = models.ForeignKey(Resource, on_delete=models.PROTECT, related_name='harvest_nat_structs')
+
+    def __str__(self):
+        return self.name
+    
