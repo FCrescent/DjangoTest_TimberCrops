@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Natural Structures</h1>
+<a href="{% url 'nat_struct_create' %}" class="btn btn-primary">Create New</a>
+<br><br>
+<table class="styled-table" style="width: 400px">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Name</th>
+            <th>Resource category</th>
+            <th>Days to grow</th>
+            <th>Cut Resource</th>
+            <th>Cut Resource yield</th>
+            <th>Harvested Resource</th>
+            <th>Days between harvest</th>
+            <th>Harvested Resource yield</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nat_struct in nat_structs %}
+            <tr>
+                <td style="display: flex; justify-content: space-around;">
+                    <a href="{% url 'nat_struct_update' nat_struct.pk %}" class="btn update-button">Update</a>
+                    <form method="post" action="{% url 'nat_struct_delete' nat_struct.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn delete-button">Delete</button>
+                    </form>
+                </td>
+                <td>{{ nat_struct.name }}</td>
+                <td>{{ nat_struct.category }}</td>
+                <td>{{ nat_struct.days_to_grow }}</td>
+                <td>{{ nat_struct.resource_cut }}</td>
+                <td>{{ nat_struct.resource_cut_yield }}</td>
+                <td>{{ nat_struct.resource_harvest }}</td>
+                <td>{{ nat_struct.days_between_harvest }}</td>
+                <td>{{ nat_struct.resource_harvest_yield }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

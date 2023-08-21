@@ -1,5 +1,8 @@
 from django import forms
-from .models import GameMode, Need, NeedCat, ResourceCat, Resource, NatStructCat
+from .models import ( 
+    GameMode, Need, Resource, NatStruct,
+    NeedCat, ResourceCat, NatStructCat    
+)
 
 class GameModeForm(forms.ModelForm):
     class Meta:
@@ -35,3 +38,17 @@ class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
         fields = ['name', 'category']
+
+class NatStructForm(forms.ModelForm):
+    resource_cut = forms.ModelChoiceField(queryset=Resource.objects.all(), required=False)
+    resource_cut_yield = forms.IntegerField(required=False)
+    resource_harvest = forms.ModelChoiceField(queryset=Resource.objects.all(), required=False)
+    days_between_harvest = forms.IntegerField(required=False)        
+    resource_harvest_yield = forms.IntegerField(required=False)
+    
+    class Meta:
+        model = NatStruct
+        fields = ['name', 'category', 'days_to_grow', 'resource_cut', 'resource_cut_yield',
+                  'resource_harvest', 'days_between_harvest', 'resource_harvest_yield']
+        
+       

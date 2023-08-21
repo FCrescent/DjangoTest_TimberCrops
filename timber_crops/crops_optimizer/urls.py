@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import views, views_resource_cat, views_need_cat, views_resource, views_nat_struct_cat
+from .views import (views, views_resource, views_nat_struct,
+                    views_resource_cat, views_need_cat, views_nat_struct_cat)
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -23,4 +24,8 @@ urlpatterns = [
     path('resource/create/', views_resource.ResourceCreateView.as_view(), name='resource_create'),
     path('resource/<int:pk>/update/', views_resource.ResourceUpdateView.as_view(), name='resource_update'),
     path('resource/<int:pk>/delete/', views_resource.ResourceDeleteView.as_view(), name='resource_delete'),
+    path('natural-structure/', views_nat_struct.NatStructListView.as_view(), name='nat_struct_list'),
+    path('natural-structure/create/', views_nat_struct.NatStructCreateView.as_view(), name='nat_struct_create'),
+    path('natural-structure/<int:pk>/update/', views_nat_struct.NatStructUpdateView.as_view(), name='nat_struct_update'),
+    path('natural-structure/<int:pk>/delete/', views_nat_struct.NatStructDeleteView.as_view(), name='nat_struct_delete'),
 ]
