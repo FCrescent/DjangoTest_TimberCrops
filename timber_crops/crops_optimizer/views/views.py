@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from ..forms import GameModeForm, ModifyGameModeForm#, ModifyLockForm
+from ..forms import GameModeForm, ModifyGameModeForm#, SimulationForm
 from ..models import GameMode
 import logging
 from django.contrib import messages
@@ -53,7 +53,11 @@ def home(request):
             }
         }
 
-        sum_food_ratio = sum(food_data["ratio_to_food"] for food_data in foods.values())
+        sum_food_ratio = sum(
+        food_data["ratio_to_food"]
+        for food_data in foods.values()
+        if food_data["selected"]
+        )
 
         for food_name, food_data in foods.items():
             if food_data["selected"]:
@@ -61,11 +65,14 @@ def home(request):
                 crop_yield = food_data["crop_yield"]
                 days_between_harvest = food_data["days_between_harvest"]
                 transformation_multiplier = food_data["transformation_multiplier"]
-
-                required_daily_food_prod = ratio_to_food * number_daily_food / sum(food["ratio_to_food"] for food in foods.values())
+                
+                required_daily_food_prod = ratio_to_food * number_daily_food / sum_food_ratio #sum(food["ratio_to_food"] for food in foods.values())
                 daily_crop_prod = crop_yield / days_between_harvest * transformation_multiplier
+                # print("Value of sum_food_ratio:", sum_food_ratio)
+                # print("Value of ratio_to_food:", ratio_to_food)
+                # print("Value of daily_crop_prod:", daily_crop_prod)
                 required_crops_number = Decimal(required_daily_food_prod) / Decimal(daily_crop_prod)
-
+                # print("Value of required_crops_number:", required_crops_number)
                 food_data["required_crops_number"] = required_crops_number
             else:
                 food_data["required_crops_number"] = 0
@@ -82,7 +89,7 @@ def home(request):
         context = {**context, **result_context}
 
         return render(request, 'home.html', context)
-
+    
     return render(request, 'home.html', {'game_modes': game_modes})
 
 

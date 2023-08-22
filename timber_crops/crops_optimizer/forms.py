@@ -4,6 +4,14 @@ from .models import (
     NeedCat, ResourceCat, NatStructCat    
 )
 
+# class SimulationForm(forms.Form):
+#     game_mode = forms.ChoiceField(choices=[], required=True)
+#     number_of_beavers = forms.IntegerField(required=True)
+#     carrots = forms.BooleanField(required=False)
+#     carrots_food_ratio = forms.IntegerField(required=True, initial=1)
+#     bread = forms.BooleanField(required=False)
+#     bread_food_ratio = forms.IntegerField(required=True, initial=1)
+
 class GameModeForm(forms.ModelForm):
     class Meta:
         model = GameMode
