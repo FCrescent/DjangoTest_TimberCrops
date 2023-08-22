@@ -78,6 +78,7 @@ def home(request):
                 food_data["required_crops_number"] = 0
 
         result_context = {
+            'selected_game_mode_id': selected_game_mode_id,
             'number_of_beavers': number_of_beavers,
             'carrots_selected': carrots_selected,
             'bread_selected': bread_selected,
@@ -86,11 +87,14 @@ def home(request):
             # Add other variables here
             }    
 
+       
         context = {**context, **result_context}
-
-        return render(request, 'home.html', context)
+        
+        print("Value of context: ", context)
+        # return render(request, 'home.html', context)
     
-    return render(request, 'home.html', {'game_modes': game_modes})
+    return render(request, 'home.html', context)
+                  #{'game_modes': game_modes})
 
 
 def settings_hub(request: HttpRequest) -> HttpResponse: #type hinting used to specify the expected type of the request
